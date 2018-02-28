@@ -42,7 +42,6 @@ for item in myset:
     for call in calls:
         if item == call[0]:
             callto.add(str(call[1]))
-            calltoBangalore.add(str(call[1]))
             
 for call in calls:
     if call[0][:5] == "(080)" and call[1][:5] == "(080)":

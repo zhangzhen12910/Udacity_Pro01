@@ -41,7 +41,10 @@ for callin in list(callins):
         if text[0] == callin or text[1] == callin:
             callins.remove(callin)
             break
-
-print('"These numbers could be telemarketers: "')
+outlist = []
 for o in callins:
+    outlist.append(o)
+outlist.sort()
+print('"These numbers could be telemarketers: "')
+for o in outlist:
     print('<' + str(o) + '>')
