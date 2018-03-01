@@ -31,34 +31,19 @@ with open('texts.csv', 'r') as f:
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-
-myset = set()
-for call in calls:
-    if call[0][:5] == "(080)":
-        myset.add(call[0])
-callto = set()
-calltoBangalore = set()
-for item in myset:
-    for call in calls:
-        if item == call[0]:
-            callto.add(str(call[1]))
-            
-for call in calls:
-    if call[0][:5] == "(080)" and call[1][:5] == "(080)":
-        calltoBangalore.add(str(call[1]))
+    
+call_from_Bangal = [call[1] for call in calls if call[0][:5] == "(080)"]
+call_to_Bangal_fr_Bangal = [call[1] for call in calls if call[0][:5] == "(080)" and call[1][:5] == "(080)"]
             
 outPut = set()
-for c in callto:
+for c in call_from_Bangal:
     if c[0:1] == "(":
-        outPut.add(c[:c.find(")")+1])
+        outPut.add(c[1:c.find(")")])
     else: 
-        outPut.add(c[:5])
-outlist = []
-for o in outPut:
-    outlist.append(o)
-outlist.sort()
+        outPut.add(c[:4])
+
 print('"The numbers called by people in Bangalore have codes:"')
-for o in outlist:
+for o in sorted(outPut):
     print('<' + str(o) + '>')
         
 """
@@ -72,5 +57,5 @@ to other fixed lines in Bangalore."
 注意：百分比应包含2位小数。
 """
 
-print('<' + "%.2f%%"%(float(len(calltoBangalore)/len(calls))*100) + '> percent of calls from fixed lines in Bangalore are callsto other fixed lines in Bangalore."')
+print('<' + "%.2f"%(float(len(call_to_Bangal_fr_Bangal)/len(call_from_Bangal))*100) + '> percent of calls from fixed lines in Bangalore are callsto other fixed lines in Bangalore."')
 
